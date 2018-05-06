@@ -166,26 +166,9 @@
   <!-- Project Libraries -->
   
   <path id="library.jung-api-2.0.1.classpath">
-    <pathelement location="${basedir}/lib/collections-generic-4.01.jar"/>
-    <pathelement location="${basedir}/lib/colt-1.2.0.jar"/>
-    <pathelement location="${basedir}/lib/concurrent-1.3.4.jar"/>
     <pathelement location="${basedir}/lib/hamcrest-core-1.3.jar"/>
-    <pathelement location="${basedir}/lib/j3d-core-1.3.1.jar"/>
     <pathelement location="${basedir}/lib/javax.json-1.0.jar"/>
-    <pathelement location="${basedir}/lib/jung-3d-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-3d-demos-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-algorithms-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-api-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-graph-impl-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-io-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-jai-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-jai-samples-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-samples-2.0.1.jar"/>
-    <pathelement location="${basedir}/lib/jung-visualization-2.0.1.jar"/>
     <pathelement location="${basedir}/lib/junit-4.12.jar"/>
-    <pathelement location="${basedir}/lib/stax-api-1.0.1.jar"/>
-    <pathelement location="${basedir}/lib/vecmath-1.3.1.jar"/>
-    <pathelement location="${basedir}/lib/wstx-asl-3.2.6.jar"/>
   </path>
   
   <path id="library.lib.classpath">
