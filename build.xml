@@ -176,18 +176,6 @@
       <patternset refid="library.patterns"/>
     </fileset>
   </path>
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${idea.home}/lib"/>
-  <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-  </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
   
   <!-- Modules -->
   
@@ -248,6 +236,11 @@
   <path id="lab3.module.sourcepath">
     <dirset dir="${module.lab3.basedir}">
       <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="lab3.module.test.sourcepath">
+    <dirset dir="${module.lab3.basedir}">
       <include name="test"/>
     </dirset>
   </path>
@@ -255,29 +248,41 @@
   
   <target name="compile.module.lab3" depends="compile.module.lab3.production,compile.module.lab3.tests" description="Compile module Lab3"/>
   
-  <target name="compile.module.lab3.production" depends="register.custom.compilers" description="Compile module Lab3; production classes">
+  <target name="compile.module.lab3.production" description="Compile module Lab3; production classes">
     <mkdir dir="${lab3.output.dir}"/>
-    <javac2 destdir="${lab3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.lab3}/javac">
+    <javac destdir="${lab3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.lab3}/javac">
       <compilerarg line="${compiler.args.lab3}"/>
       <bootclasspath refid="lab3.module.bootclasspath"/>
       <classpath refid="lab3.module.production.classpath"/>
       <src refid="lab3.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.lab3"/>
-    </javac2>
+    </javac>
     
     <copy todir="${lab3.output.dir}">
       <fileset dir="${module.lab3.basedir}/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.lab3.tests" depends="compile.module.lab3.production" description="compile module Lab3; test classes" unless="skip.tests">
+    <mkdir dir="${lab3.testoutput.dir}"/>
+    <javac destdir="${lab3.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.lab3}/javac">
+      <compilerarg line="${compiler.args.lab3}"/>
+      <bootclasspath refid="lab3.module.bootclasspath"/>
+      <classpath refid="lab3.module.classpath"/>
+      <src refid="lab3.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.lab3"/>
+    </javac>
+    
+    <copy todir="${lab3.testoutput.dir}">
       <fileset dir="${module.lab3.basedir}/test">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
     </copy>
   </target>
-  
-  <target name="compile.module.lab3.tests" depends="register.custom.compilers,compile.module.lab3.production" description="compile module Lab3; test classes" unless="skip.tests"/>
   
   <target name="clean.module.lab3" description="cleanup module">
     <delete dir="${lab3.output.dir}"/>
