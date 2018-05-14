@@ -8,10 +8,7 @@ import vertex.Vertex;
 import vertex.VertexFactory;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -150,10 +147,58 @@ public class ParserInputHelper
                 else if(this.typeName.equals(preCondition[5]) || this.typeName.equals(preCondition[6]))
                 {
                     Edge e = WrapEdge(spl[1]);
-                    if(e!=null) this.ans = gf.addEdge(e);
+                    if(e!=null) this.ans = gf.addEdge(e, true);
                 }
             }
         }
+    }
+    public Graph cmdLabelModify(String typeName, String preLabel, String modifiedLabel) throws CloneNotSupportedException {
+        if(typeName.equals("vertex"))
+        {
+            if(this.stov.containsKey(preLabel))
+            {
+                Vertex tmp = this.stov.get(preLabel);
+                this.ans.removeVertex(tmp);
+                VertexFactory vf = new VertexFactory();
+                Vertex v = vf.createVertexFromPreventVertex(tmp, modifiedLabel);
+                this.ans = gf.addVertex(v);
+                this.stov.remove(preLabel);
+                this.stov.put(modifiedLabel, v);
+            }
+            else
+            {
+                System.out.println("[E] the old Label not exists. Error on Modifying Vertex");
+            }
+        }
+        else if(typeName.equals("edge"))
+        {
+            Set<Edge> ver = (Set<Edge>)this.ans.edges();
+            Edge ee = null;
+            for(Edge e:ver)
+            {
+                if(e.getLabel().equals(preLabel))
+                {
+                    ee = e;
+                    break;
+                }
+            }
+            if(ee==null)
+            {
+                System.out.println("[E] The label of Edge not exists.");
+            }
+            else
+            {
+                EdgeFactory ef = new EdgeFactory();
+                Edge eee = ef.createEdgeFromPreviousEdge(ee, modifiedLabel);
+                this.ans.removeEdge(ee);
+                this.ans = gf.addEdge(eee, false);
+            }
+        }
+        else
+        {
+            System.out.println("[E] Inner Error. On Label Modify.");
+        }
+        return ans;
     }
     public Graph cmdVertexAdder(String label,String typename,  String typeClass, String[] res) throws Exception {
         if(typeClass.equals("Vertex"))
@@ -173,8 +218,9 @@ public class ParserInputHelper
             Matcher m = p.matcher(s);
             if(m.matches())
             {
-                this.ans.removeVertex(stov.get(s));
-                this.stov.remove(s);
+                Vertex v = stov.get(s);
+                stov.keySet().removeIf(o -> o.equals(v));
+                this.ans.removeVertex(v);
             }
         }
         return this.ans;
@@ -182,7 +228,7 @@ public class ParserInputHelper
     public Graph cmdEdgeAdder(String type, String label, double weight, String[] res) throws Exception {
         EdgeFactory ef = new EdgeFactory();
         Edge anss =  ef.createEdgeOfCertainType(type, label, res, this.stov);
-        if(anss!=null) this.ans = gf.addEdge(anss);
+        if(anss!=null) this.ans = gf.addEdge(anss, false);
         return  this.ans;
     }
     public Graph cmdEdgeDeleter(String regex)

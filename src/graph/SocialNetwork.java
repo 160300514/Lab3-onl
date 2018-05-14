@@ -103,7 +103,7 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
     }
 
     @Override
-    public boolean removeVertex(Person v) {
+    public synchronized boolean removeVertex(Person v) {
         if(state!=1)
         {
             System.out.println("System not active.");
@@ -111,17 +111,28 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
         }
         if(v==null) return false;
         this.vertices.remove(v);
-        this.map.remove(v);
+        //this.map.remove(v);
+        Set<Edge> ed = new HashSet<>();
         for(Person p: this.map.keySet())
         {
+            Iterator it = this.map.get(p).iterator();
+            while(it.hasNext())
+            {
+                Edge e = (Edge) it.next();
+                if(e.containVertex(v))
+                    ed.add(e);
+            }
+            /*
             for(Edge e: this.map.get(p))
             {
                 if(e.containVertex(v))
                 {
-                    this.map.get(p).remove(e);
+                    //System.out.println(e.toString());
+                    this.map.get(p).remove(e);e.weightConfig(e.getWeight()/(1-edge.getWeight()));
                 }
-            }
+            }*/
         }
+        ed.forEach(edge -> removeedgeuseString(edge.getLabel()));
         return true;
     }
 
@@ -186,7 +197,7 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
     }
 
     @Override
-    public boolean addEdge(Edge edge) {
+    public boolean addEdge(Edge edge, Boolean filein) {
         if(state!=1)
         {
             System.out.println("System not active.");
@@ -197,6 +208,23 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
         {
             //System.out.println("Addedge: "+edge.toString());
             Person src = (Person)edge.sourceVertices().toArray()[0];
+            Person tar = (Person)edge.targetVertices().toArray()[0];
+            if(filein)
+            {
+                this.vertices.add(src);
+                this.vertices.add(tar);
+                if(this.map.containsKey(src))
+                {
+                    this.map.get(src).add(edge);
+                }
+                else
+                {
+                    Set<Edge> tmp =new HashSet<>();
+                    tmp.add(edge);
+                    this.map.put(src, tmp);
+                }
+                return true;
+            }
             Double consis = 1-edge.getWeight();
             boolean added = false;
             for(Person p:  this.map.keySet())
@@ -233,16 +261,40 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
         return true;
     }
 
+    private synchronized boolean removeedgeuseString(String label)
+    {
+        Edge ee = null;
+        for(Edge e: edges())
+            if(e.getLabel().equals(label))
+                ee = e;
+        removeEdge(ee);
+        return ee!=null;
+    }
+
     @Override
-    public boolean removeEdge(Edge edge) {
+    public synchronized boolean removeEdge(Edge edge) {
         if(state!=1)
         {
             System.out.println("System not active.");
             return false;
         }
         if(edge==null) return false;
+        boolean removed = false;
+        Double tmp = edge.getWeight();
         for(Person p:this.map.keySet())
         {
+            Iterator it = this.map.get(p).iterator();
+            while(it.hasNext())
+            {
+                Edge e = (Edge) it.next();
+                if(e.equals(edge))
+                {
+                    it.remove();
+                    removed = true;
+                    break;
+                }
+            }
+            /*
             for(Edge e: this.map.get(p))
             {
                 if(e.equals(edge))
@@ -254,9 +306,20 @@ public class SocialNetwork extends ConcreteGraph<Person,Edge> // weight of each 
                 {
                     e.weightConfig(e.getWeight()/(1-edge.getWeight()));
                 }
+            }*/
+        }
+        if(removed)
+        {
+            for(Person p:this.map.keySet())
+            {
+                for(Edge e:this.map.get(p))
+                {
+                    e.weightConfig(e.getWeight()/(1-tmp));
+                }
             }
         }
-        return false;
+        System.out.println(toString());
+        return removed;
     }
 
     @Override

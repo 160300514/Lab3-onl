@@ -16,6 +16,12 @@ public class Actor extends Vertex implements Cloneable
         this.Gender = Gender;
     }
 
+
+    @Override
+    public String getLabel() {
+        return super.getLabel();
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         Actor act = (Actor) super.clone();

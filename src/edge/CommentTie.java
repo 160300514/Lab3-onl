@@ -54,7 +54,10 @@ public class CommentTie extends Edge implements Cloneable
         if(v instanceof Person)
         {
             Person p = (Person)v;
-            return this.src.equals(p) || this.tar.equals(p);
+            //System.out.println(p.toString());
+            //System.out.println(this.src.equals(p));
+            //System.out.println(this.tar.equals(p));
+            return (this.src.equals(p) || this.tar.equals(p));
         }
         else return false;
     }

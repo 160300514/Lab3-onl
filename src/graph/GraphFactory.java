@@ -75,26 +75,26 @@ public class GraphFactory
         return this.ans;
     }
 
-    public Graph addEdge(Edge eadd) throws CloneNotSupportedException {
+    public Graph addEdge(Edge eadd, Boolean filein) throws CloneNotSupportedException {
         if(typeName.equals(this.graphTypeSet[0]))
         {
             assert eadd.getClass() == WordNeighborhood.class;
-            this.ans.addEdge(eadd);
+            this.ans.addEdge(eadd, filein);
         }
         else if(typeName.equals(this.graphTypeSet[1]))
         {
             assert eadd.getClass() == FriendTie.class || eadd.getClass() == CommentTie.class || eadd.getClass() == ForwardTie.class;
-            this.ans.addEdge(eadd);
+            this.ans.addEdge(eadd, filein);
         }
         else if(typeName.equals(this.graphTypeSet[2]))
         {
             assert eadd.getClass() == NetworkConnection.class;
-            this.ans.addEdge(eadd);
+            this.ans.addEdge(eadd, filein);
         }
         else if(typeName.equals(this.graphTypeSet[3]))
         {
             assert eadd.getClass() == MovieActorRelation.class || eadd.getClass() == MovieDirectorRelation.class || eadd.getClass() == SameMovieHyperEdge.class;
-            this.ans.addEdge(eadd);
+            this.ans.addEdge(eadd, filein);
         }
         else
             System.out.println("[E] Edge cannot be added: different type.");

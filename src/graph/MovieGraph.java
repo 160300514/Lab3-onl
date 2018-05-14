@@ -52,12 +52,12 @@ public class MovieGraph extends ConcreteGraph<Vertex,Edge> {
         this.map.remove(v);
         for(Vertex vet: this.map.keySet())
         {
-            for(Edge e: this.map.get(vet))
+            Iterator it = this.map.get(vet).iterator();
+            while(it.hasNext())
             {
-                if(e.sourceVertices().contains(v))// undirected
-                {
-                    this.map.get(vet).remove(e);
-                }
+                Edge e = (Edge) it.next();
+                if(e.containVertex(v))
+                    it.remove();
             }
         }
         return true;
@@ -98,7 +98,7 @@ public class MovieGraph extends ConcreteGraph<Vertex,Edge> {
 
     //protect edge input: clone : only hyper is needed.
     @Override
-    public boolean addEdge(Edge edge) throws CloneNotSupportedException {
+    public boolean addEdge(Edge edge, Boolean filein) throws CloneNotSupportedException {
         if((edge instanceof SameMovieHyperEdge || edge instanceof MovieDirectorRelation || edge instanceof MovieActorRelation))
         {
             if(edge instanceof SameMovieHyperEdge) {
@@ -123,15 +123,27 @@ public class MovieGraph extends ConcreteGraph<Vertex,Edge> {
 
     @Override
     public boolean removeEdge(Edge edge) {
+        boolean removed = false;
         for(Vertex v: this.map.keySet())
         {
+            Iterator it = this.map.get(v).iterator();
+            while(it.hasNext())
+            {
+                Edge e = (Edge) it.next();
+                if(edge.equals(e))
+                {
+                    removed = true;
+                    it.remove();
+                }
+            }
+            /*
             for(Edge e: this.map.get(v))
             {
                 if(e.equals(edge))
                 {
                     this.map.get(v).remove(edge);
                 }
-            }
+            }*/
         }
         return true;
     }

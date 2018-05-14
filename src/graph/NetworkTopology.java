@@ -1,5 +1,6 @@
 package graph;
 
+import edge.Edge;
 import edge.NetworkConnection;
 import vertex.NetworkPather;
 
@@ -79,10 +80,12 @@ public class NetworkTopology extends ConcreteGraph<NetworkPather,NetworkConnecti
         this.map.remove(v);
         for(NetworkPather np : this.map.keySet())
         {
-            for(NetworkConnection nc: this.map.get(np))
+            Iterator it = this.map.get(np).iterator();
+            while(it.hasNext())
             {
-                if(nc.containVertex(v))
-                    this.map.get(np).remove(nc);
+                Edge e = (Edge) it.next();
+                if(e.containVertex(v))
+                    it.remove();
             }
         }
         return true;
@@ -152,7 +155,7 @@ public class NetworkTopology extends ConcreteGraph<NetworkPather,NetworkConnecti
     }
 
     @Override
-    public boolean addEdge(NetworkConnection edge) {
+    public boolean addEdge(NetworkConnection edge, Boolean filein) {
         if(state == 1)
         {
             System.out.println("[E] Now the System is closed.");
@@ -200,8 +203,20 @@ public class NetworkTopology extends ConcreteGraph<NetworkPather,NetworkConnecti
             System.out.println("[E] Now the System is closed.");
         }
         if(edge==null) return false;
+        boolean removed = false;
         for(NetworkPather np:this.map.keySet())
         {
+            Iterator it = this.map.get(np).iterator();
+            while(it.hasNext())
+            {
+                Edge e = (Edge) it.next();
+                if(e.equals(edge))
+                {
+                    removed = true;
+                    it.remove();
+                }
+            }
+            /*
             for(NetworkConnection nc: this.map.get(np))
             {
                 if(nc.equals(edge))
@@ -209,9 +224,9 @@ public class NetworkTopology extends ConcreteGraph<NetworkPather,NetworkConnecti
                     this.map.get(np).remove(edge);
                     return true;
                 }
-            }
+            }*/
         }
-        return false;
+        return removed;
     }
 
     @Override

@@ -28,7 +28,7 @@ public interface Graph<L,E>
 
     public Map<L, List<Double>> targets(L source);
 
-    public boolean addEdge(E edge) throws CloneNotSupportedException;
+    public boolean addEdge(E edge, Boolean filein) throws CloneNotSupportedException;
 
     public boolean removeEdge(E edge);
 

@@ -19,8 +19,17 @@ public class GraphPoetApp
         System.out.println("GraphPoet App\nVersion=1.0.\nAuthor=marisuki\nUse \"GraphPoet --help\" to get details.");
         Scanner sc = new Scanner(System.in);
         System.out.println("Input: FilePath(Absolute path recommended)");
-        gp = (GraphPoet) generalInputHelper.fileReadConfig(sc.nextLine());
-        System.out.println(gp.toString());
+        String fPath = sc.nextLine();
+        File files = new File(fPath);
+        if(files.exists())
+        {
+            gp = (GraphPoet) generalInputHelper.fileReadConfig(fPath);
+            System.out.println(gp.toString());
+        }
+        else
+        {
+            System.out.println("[E] File Path not exists.");
+        }
         while(sc.hasNext())
         {
             boolean show = false;
@@ -127,6 +136,20 @@ public class GraphPoetApp
                 assert a.length==1;
                 System.out.println("diameter:"+GraphMetrics.diameter(gp));
             }
+            else if(str.contains("modify"))
+            {
+                String[] a = str.split(" ");
+                if(a.length!=4)
+                    System.out.println("[E] Input Format Error, See --help for details.");
+                if(a[1].equals("edge") || a[1].equals("Edge"))
+                {
+                    gp = (GraphPoet) generalInputHelper.LabelModifier("edge", a[2], a[3]);
+                }
+                else if(a[1].equals("vertex")||a[1].equals("Vertex"))
+                {
+                    gp = (GraphPoet) generalInputHelper.LabelModifier("vertex", a[2], a[3]);
+                }
+            }
             else if(str.contains("save"))
             {
                 String []a = str.split(" ");
@@ -162,6 +185,7 @@ public class GraphPoetApp
         swt.write("choice3: \"inDegreeCentrality label\" Or \"outDegreeCentrality label\"\n");
         swt.write("choice4: \"distance label1 label2\"\nchoice5: \"eccentricity label\"\n");
         swt.write("choice6: \"radius\"\nchoice7: \"diameter\"\n");
+        swt.write("choice7: modify vertex/edge [preLabel] [modifiedLabel]\n");
         swt.write("Memory-hold on: \"save -s Save_label\" to save temporary graph. Or \"save -recall Save_label\" to call back a history savage.\n");
         swt.write("While you input commands, please DO NOT add ->\"<-.\n");
         swt.write("CopyRight. 2018-5\n");

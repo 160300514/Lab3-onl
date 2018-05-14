@@ -89,7 +89,7 @@ public class ConcreteGraph<L extends Vertex, E extends Edge> implements Graph<L,
     }
 
     @Override
-    public boolean addEdge(E edge) throws CloneNotSupportedException {
+    public boolean addEdge(E edge, Boolean filein) throws CloneNotSupportedException {
 
         return false;
     }

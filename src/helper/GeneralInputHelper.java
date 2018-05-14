@@ -63,4 +63,8 @@ public class GeneralInputHelper
     {
         return pih.establishGraph(fileName);
     }
+
+    public Graph LabelModifier(String typeName, String preLabel, String modifyLabel) throws Exception {
+        return pih.cmdLabelModify(typeName,preLabel,modifyLabel);
+    }
 }

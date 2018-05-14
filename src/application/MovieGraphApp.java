@@ -20,8 +20,17 @@ public class MovieGraphApp
         System.out.println("GraphPoet App\nVersion=1.0.\nAuthor=marisuki\nUse \"GraphPoet --help\" to get details.");
         Scanner sc = new Scanner(System.in);
         System.out.println("Input: FilePath(Absolute path recommended)");
-        gp = (MovieGraph) generalInputHelper.fileReadConfig(sc.nextLine());
-        System.out.println(gp.toString());
+        String fPath = sc.nextLine();
+        File files = new File(fPath);
+        if(files.exists())
+        {
+            gp = (MovieGraph) generalInputHelper.fileReadConfig(fPath);
+            System.out.println(gp.toString());
+        }
+        else
+        {
+            System.out.println("[E] File Path not exists.");
+        }
         while(sc.hasNext())
         {
             boolean show = false;
@@ -41,6 +50,20 @@ public class MovieGraphApp
                     System.out.println("[E] File Path not exists.");
                 }
                 System.out.println("Graph Establish complete.\nUse \"GraphPoet --help\" to see operates supported.");
+            }
+            else if(str.contains("modify"))
+            {
+                String[] a = str.split(" ");
+                if(a.length!=4)
+                    System.out.println("[E] Input Format Error, See --help for details.");
+                if(a[1].equals("edge") || a[1].equals("Edge"))
+                {
+                    gp = (MovieGraph) generalInputHelper.LabelModifier("edge", a[2], a[3]);
+                }
+                else if(a[1].equals("vertex")||a[1].equals("Vertex"))
+                {
+                    gp = (MovieGraph) generalInputHelper.LabelModifier("vertex", a[2], a[3]);
+                }
             }
             else if(str.contains("degreeCentrality"))
             {
@@ -163,6 +186,7 @@ public class MovieGraphApp
         swt.write("choice3: \"inDegreeCentrality label\" Or \"outDegreeCentrality label\"\n");
         swt.write("choice4: \"distance label1 label2\"\nchoice5: \"eccentricity label\"\n");
         swt.write("choice6: \"radius\"\nchoice7: \"diameter\"\n");
+        swt.write("choice7: modify vertex/edge [preLabel] [modifiedLabel]\n");
         swt.write("Memory-hold on: \"save -s Save_label\" to save temporary graph. Or \"save -recall Save_label\" to call back a history savage.\n");
         swt.write("While you input commands, please DO NOT add ->\"<-.\n");
         swt.write("CopyRight. 2018-5\n");

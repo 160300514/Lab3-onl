@@ -11,6 +11,8 @@ abstract public class Vertex
         this.label = label;
     }
 
+    public Vertex(Vertex vpre, String label){}
+
     abstract void fillVertexInfo(String[] args) throws NoSuchMethodException;
 
     public String getLabel()

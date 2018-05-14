@@ -129,4 +129,53 @@ public class EdgeFactory
         }
         throw new Exception("the edge type name not included.");
     }
+
+    public Edge createEdgeFromPreviousEdge(Edge pre, String newLabel)
+    {
+        if(pre.getClass().equals(CommentTie.class))
+        {
+            CommentTie ct = (CommentTie) pre;
+            return new CommentTie(newLabel, ct.getWeight(), ct.getSrc(), ct.getTar());
+        }
+        else if(pre.getClass().equals(ForwardTie.class))
+        {
+            ForwardTie ft = (ForwardTie) pre;
+            return new ForwardTie(newLabel, ft.getWeight(), ft.getSrc(), ft.getTar());
+        }
+        else if(pre.getClass().equals(FriendTie.class))
+        {
+            FriendTie fft = (FriendTie) pre;
+            return new FriendTie(newLabel, fft.getWeight(), fft.getSrc(), fft.getTar());
+        }
+        else if(pre.getClass().equals(MovieActorRelation.class))
+        {
+            MovieActorRelation mar = (MovieActorRelation) pre;
+            return new MovieActorRelation(newLabel, mar.getWeight(), mar.getMovie(), mar.getAct());
+        }
+        else if(pre.getClass().equals(MovieDirectorRelation.class))
+        {
+            MovieDirectorRelation md = (MovieDirectorRelation) pre;
+            return new MovieDirectorRelation(newLabel, md.getMovie(), md.getDirector());
+        }
+        else if(pre.getClass().equals(NetworkConnection.class))
+        {
+            NetworkConnection nc = (NetworkConnection) pre;
+            return new NetworkConnection(newLabel, nc.getWeight(), (NetworkPather) nc.sourceVertices().toArray()[0], (NetworkPather) nc.sourceVertices().toArray()[1]);
+        }
+        else if(pre.getClass().equals(SameMovieHyperEdge.class))
+        {
+            SameMovieHyperEdge sm = (SameMovieHyperEdge) pre;
+            return new SameMovieHyperEdge(newLabel, sm.getVerticespassiing());
+        }
+        else if(pre.getClass().equals(WordNeighborhood.class))
+        {
+            WordNeighborhood wn = (WordNeighborhood) pre;
+            return new WordNeighborhood(newLabel, wn.getWeight(), wn.getSource(), wn.getTarget());
+        }
+        else
+        {
+            System.out.println("[E] Inner Error, please connect Administrator, error on EdgeFactory.");
+            return null;
+        }
+    }
 }

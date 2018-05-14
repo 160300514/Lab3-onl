@@ -5,6 +5,8 @@ Using the Builder method to create vertices and return it;
 the vertices are recorded in the parserInputHelper(class)
  */
 
+import graph.NetworkTopology;
+
 import java.util.regex.Pattern;
 
 
@@ -98,5 +100,54 @@ public class VertexFactory
             return d;
         }
         throw new Exception("vertices type name not included.");
+    }
+
+    public Vertex createVertexFromPreventVertex(Vertex pre, String newLabel)
+    {
+        if(pre.getClass().equals(Actor.class))
+        {
+            Actor tmp = (Actor) pre;
+            return new Actor(newLabel, tmp.getAge(), tmp.getGender());
+        }
+        else if(pre.getClass().equals(Computer.class))
+        {
+            Computer tmp = (Computer) pre;
+            return new Computer(newLabel, tmp.getIPAddress());
+        }
+        else if(pre.getClass().equals(Director.class))
+        {
+            Director tmp = (Director) pre;
+            return new Director(newLabel, tmp.getAge(), tmp.getGender());
+        }
+        else if(pre.getClass().equals(Movie.class))
+        {
+            Movie mov = (Movie) pre;
+            return new Movie(newLabel, mov.getYrOnline(), mov.getCountry(),mov.getImdbScore());
+        }
+        else if(pre.getClass().equals(Person.class))
+        {
+            Person p = (Person) pre;
+            return new Person(newLabel, p.getGender(), p.getAge());
+        }
+        else if(pre.getClass().equals(Router.class))
+        {
+            Router r = (Router) pre;
+            return new Router(newLabel, r.getIPAddress());
+        }
+        else if(pre.getClass().equals(Server.class))
+        {
+            Server s = (Server) pre;
+            return new Server(newLabel, s.getIPAddress());
+        }
+        else if(pre.getClass().equals(Word.class))
+        {
+            Word w = (Word) pre;
+            return new Word(newLabel);
+        }
+        else
+        {
+            System.out.println("[E] Debug Error: Inner Class Config Error on VertexFactory-createFromPreVertex");
+            return null;
+        }
     }
 }

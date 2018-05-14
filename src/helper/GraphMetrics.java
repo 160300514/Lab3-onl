@@ -47,6 +47,7 @@ public class GraphMetrics
 
     public static <L,E> double degreeCentrality(Graph<L,E> g)
     {
+        if(g.edges().size()==0) return 0;
         Double maxDeg = -1.0;
         for(L v: g.vertices())
         {
@@ -132,11 +133,13 @@ public class GraphMetrics
 
     public static <L extends Vertex,E extends Edge> double closenessCentrality(Graph<L ,E> g, L v)
     {
+        if(g.edges().size()==0) return 0;
         return shortestPath(g, v).getKey();
     }
 
     public static <L extends Vertex,E extends Edge> double betweennessCentrality(Graph<L,E> g, L v)
     {
+        if(g.edges().size()==0) return 0;
         Object[] vert = g.vertices().toArray();
         Map<Object, Integer> reverse = new HashMap<>();
         int cnt=0;
@@ -227,16 +230,19 @@ public class GraphMetrics
 
     public static <L,E> double inDegreeCentrality(Graph<L,E> g, L v)
     {
+        if(g.edges().size()==0) return 0;
         return g.sources(v).size();
     }
 
     public static <L,E> double outDegreeCentrality(Graph<L,E> g, L v)
     {
+        if(g.edges().size()==0) return 0;
         return g.targets(v).size();
     }
 
     public static <L,E> double distance(Graph<L,E> g, L start, L end)
     {
+        if(g.edges().size()==0) return 0;
         Object[] vert = g.vertices().toArray();
         Map<Object, Integer> reverse = new HashMap<>();
         int cnt=0;
@@ -282,6 +288,7 @@ public class GraphMetrics
 
     public static <L extends Vertex,E extends Edge> double eccentricity(Graph<L,E> g, L v)
     {
+        if(g.edges().size()==0) return 0;
         Object[] vert = g.vertices().toArray();
         Map<Object, Integer> reverse = new HashMap<>();
         int cnt=0;
@@ -360,6 +367,7 @@ public class GraphMetrics
 
     public static <L extends Vertex,E extends Edge> double radius(Graph<L,E> g)
     {
+        if(g.edges().size()==0) return 0;
         double ans = -1;
         for(L v: g.vertices())
         {

@@ -57,11 +57,21 @@ public class GraphPoet extends ConcreteGraph<Word,WordNeighborhood> {
             map.remove(v);
             for(Word w:map.keySet())
             {
+                Iterator it = this.map.get(w).iterator();
+                while(it.hasNext())
+                {
+                    WordNeighborhood wordNeighborhood = (WordNeighborhood) it.next();
+                    if(wordNeighborhood.containVertex(v))
+                    {
+                        it.remove();
+                    }
+                }
+                /*
                 for(WordNeighborhood wn:map.get(w))
                 {
                     if(wn.containVertex(v))
                         map.get(w).remove(wn);
-                }
+                }*/
             }
             return true;
         }
@@ -121,7 +131,7 @@ public class GraphPoet extends ConcreteGraph<Word,WordNeighborhood> {
     }
 
     @Override
-    public boolean addEdge(WordNeighborhood edge) {
+    public boolean addEdge(WordNeighborhood edge, Boolean filein) {
         if(!this.vertices.contains(edge.getTarget())) this.vertices.add(edge.getTarget());
         if(!this.vertices.contains(edge.getSource())) this.vertices.add(edge.getSource());
         if(map.keySet().contains(edge.getSource()))
@@ -151,6 +161,7 @@ public class GraphPoet extends ConcreteGraph<Word,WordNeighborhood> {
 
     @Override
     public boolean removeEdge(WordNeighborhood edge) {
+        boolean removed;
         return map.keySet().contains(edge.getSource()) && map.get(edge.getSource()).remove(edge);
     }
 

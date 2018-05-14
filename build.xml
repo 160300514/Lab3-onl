@@ -52,6 +52,116 @@
     <exclude name="**/?*.aj"/>
   </patternset>
   
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.9.0" value="${jdk.home.9.0}/bin"/>
+  <path id="jdk.classpath.9.0">
+    <fileset dir="${jdk.home.9.0}">
+      <include name="../jdk-9.0.4!/java.activation"/>
+      <include name="../jdk-9.0.4!/java.base"/>
+      <include name="../jdk-9.0.4!/java.compiler"/>
+      <include name="../jdk-9.0.4!/java.corba"/>
+      <include name="../jdk-9.0.4!/java.datatransfer"/>
+      <include name="../jdk-9.0.4!/java.desktop"/>
+      <include name="../jdk-9.0.4!/java.instrument"/>
+      <include name="../jdk-9.0.4!/java.jnlp"/>
+      <include name="../jdk-9.0.4!/java.logging"/>
+      <include name="../jdk-9.0.4!/java.management"/>
+      <include name="../jdk-9.0.4!/java.management.rmi"/>
+      <include name="../jdk-9.0.4!/java.naming"/>
+      <include name="../jdk-9.0.4!/java.prefs"/>
+      <include name="../jdk-9.0.4!/java.rmi"/>
+      <include name="../jdk-9.0.4!/java.scripting"/>
+      <include name="../jdk-9.0.4!/java.se"/>
+      <include name="../jdk-9.0.4!/java.se.ee"/>
+      <include name="../jdk-9.0.4!/java.security.jgss"/>
+      <include name="../jdk-9.0.4!/java.security.sasl"/>
+      <include name="../jdk-9.0.4!/java.smartcardio"/>
+      <include name="../jdk-9.0.4!/java.sql"/>
+      <include name="../jdk-9.0.4!/java.sql.rowset"/>
+      <include name="../jdk-9.0.4!/java.transaction"/>
+      <include name="../jdk-9.0.4!/java.xml"/>
+      <include name="../jdk-9.0.4!/java.xml.bind"/>
+      <include name="../jdk-9.0.4!/java.xml.crypto"/>
+      <include name="../jdk-9.0.4!/java.xml.ws"/>
+      <include name="../jdk-9.0.4!/java.xml.ws.annotation"/>
+      <include name="../jdk-9.0.4!/javafx.base"/>
+      <include name="../jdk-9.0.4!/javafx.controls"/>
+      <include name="../jdk-9.0.4!/javafx.deploy"/>
+      <include name="../jdk-9.0.4!/javafx.fxml"/>
+      <include name="../jdk-9.0.4!/javafx.graphics"/>
+      <include name="../jdk-9.0.4!/javafx.media"/>
+      <include name="../jdk-9.0.4!/javafx.swing"/>
+      <include name="../jdk-9.0.4!/javafx.web"/>
+      <include name="../jdk-9.0.4!/jdk.accessibility"/>
+      <include name="../jdk-9.0.4!/jdk.attach"/>
+      <include name="../jdk-9.0.4!/jdk.charsets"/>
+      <include name="../jdk-9.0.4!/jdk.compiler"/>
+      <include name="../jdk-9.0.4!/jdk.crypto.cryptoki"/>
+      <include name="../jdk-9.0.4!/jdk.crypto.ec"/>
+      <include name="../jdk-9.0.4!/jdk.crypto.mscapi"/>
+      <include name="../jdk-9.0.4!/jdk.deploy"/>
+      <include name="../jdk-9.0.4!/jdk.deploy.controlpanel"/>
+      <include name="../jdk-9.0.4!/jdk.dynalink"/>
+      <include name="../jdk-9.0.4!/jdk.editpad"/>
+      <include name="../jdk-9.0.4!/jdk.hotspot.agent"/>
+      <include name="../jdk-9.0.4!/jdk.httpserver"/>
+      <include name="../jdk-9.0.4!/jdk.incubator.httpclient"/>
+      <include name="../jdk-9.0.4!/jdk.internal.ed"/>
+      <include name="../jdk-9.0.4!/jdk.internal.jvmstat"/>
+      <include name="../jdk-9.0.4!/jdk.internal.le"/>
+      <include name="../jdk-9.0.4!/jdk.internal.opt"/>
+      <include name="../jdk-9.0.4!/jdk.internal.vm.ci"/>
+      <include name="../jdk-9.0.4!/jdk.jartool"/>
+      <include name="../jdk-9.0.4!/jdk.javadoc"/>
+      <include name="../jdk-9.0.4!/jdk.javaws"/>
+      <include name="../jdk-9.0.4!/jdk.jcmd"/>
+      <include name="../jdk-9.0.4!/jdk.jconsole"/>
+      <include name="../jdk-9.0.4!/jdk.jdeps"/>
+      <include name="../jdk-9.0.4!/jdk.jdi"/>
+      <include name="../jdk-9.0.4!/jdk.jdwp.agent"/>
+      <include name="../jdk-9.0.4!/jdk.jfr"/>
+      <include name="../jdk-9.0.4!/jdk.jlink"/>
+      <include name="../jdk-9.0.4!/jdk.jshell"/>
+      <include name="../jdk-9.0.4!/jdk.jsobject"/>
+      <include name="../jdk-9.0.4!/jdk.jstatd"/>
+      <include name="../jdk-9.0.4!/jdk.localedata"/>
+      <include name="../jdk-9.0.4!/jdk.management"/>
+      <include name="../jdk-9.0.4!/jdk.management.agent"/>
+      <include name="../jdk-9.0.4!/jdk.management.cmm"/>
+      <include name="../jdk-9.0.4!/jdk.management.jfr"/>
+      <include name="../jdk-9.0.4!/jdk.management.resource"/>
+      <include name="../jdk-9.0.4!/jdk.naming.dns"/>
+      <include name="../jdk-9.0.4!/jdk.naming.rmi"/>
+      <include name="../jdk-9.0.4!/jdk.net"/>
+      <include name="../jdk-9.0.4!/jdk.pack"/>
+      <include name="../jdk-9.0.4!/jdk.packager"/>
+      <include name="../jdk-9.0.4!/jdk.packager.services"/>
+      <include name="../jdk-9.0.4!/jdk.plugin"/>
+      <include name="../jdk-9.0.4!/jdk.plugin.dom"/>
+      <include name="../jdk-9.0.4!/jdk.plugin.server"/>
+      <include name="../jdk-9.0.4!/jdk.policytool"/>
+      <include name="../jdk-9.0.4!/jdk.rmic"/>
+      <include name="../jdk-9.0.4!/jdk.scripting.nashorn"/>
+      <include name="../jdk-9.0.4!/jdk.scripting.nashorn.shell"/>
+      <include name="../jdk-9.0.4!/jdk.sctp"/>
+      <include name="../jdk-9.0.4!/jdk.security.auth"/>
+      <include name="../jdk-9.0.4!/jdk.security.jgss"/>
+      <include name="../jdk-9.0.4!/jdk.snmp"/>
+      <include name="../jdk-9.0.4!/jdk.unsupported"/>
+      <include name="../jdk-9.0.4!/jdk.xml.bind"/>
+      <include name="../jdk-9.0.4!/jdk.xml.dom"/>
+      <include name="../jdk-9.0.4!/jdk.xml.ws"/>
+      <include name="../jdk-9.0.4!/jdk.zipfs"/>
+      <include name="../jdk-9.0.4!/oracle.desktop"/>
+      <include name="../jdk-9.0.4!/oracle.net"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.9.0}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.9.0}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.9.0"/>
+  
   
   <!-- Project Libraries -->
   
@@ -75,6 +185,9 @@
   <dirname property="module.lab3.basedir" file="${ant.file}"/>
   
   
+  <property name="module.jdk.home.lab3" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.lab3" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.lab3" value="${project.jdk.classpath}"/>
   
   <property name="compiler.args.lab3" value="-encoding UTF-8 -source 9 -target 9 ${compiler.args}"/>
   
@@ -86,6 +199,7 @@
   </path>
   
   <path id="lab3.module.production.classpath">
+    <path refid="${module.jdk.classpath.lab3}"/>
     <path refid="library.lib.classpath"/>
     <path refid="library.jung-api-2.0.1.classpath"/>
   </path>
@@ -97,6 +211,7 @@
   </path>
   
   <path id="lab3.module.classpath">
+    <path refid="${module.jdk.classpath.lab3}"/>
     <pathelement location="${lab3.output.dir}"/>
     <path refid="library.lib.classpath"/>
     <path refid="library.jung-api-2.0.1.classpath"/>
@@ -135,7 +250,7 @@
   
   <target name="compile.module.lab3.production" description="Compile module Lab3; production classes">
     <mkdir dir="${lab3.output.dir}"/>
-    <javac destdir="${lab3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac destdir="${lab3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.lab3}/javac">
       <compilerarg line="${compiler.args.lab3}"/>
       <bootclasspath refid="lab3.module.bootclasspath"/>
       <classpath refid="lab3.module.production.classpath"/>
@@ -153,7 +268,7 @@
   
   <target name="compile.module.lab3.tests" depends="compile.module.lab3.production" description="compile module Lab3; test classes" unless="skip.tests">
     <mkdir dir="${lab3.testoutput.dir}"/>
-    <javac destdir="${lab3.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+    <javac destdir="${lab3.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.lab3}/javac">
       <compilerarg line="${compiler.args.lab3}"/>
       <bootclasspath refid="lab3.module.bootclasspath"/>
       <classpath refid="lab3.module.classpath"/>

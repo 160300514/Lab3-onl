@@ -45,13 +45,13 @@ public class ParseCommandHelper
 
         if(cmdhead[0].equals(possibleinputhead[0]))
         {
-            if(cmdhead.length!=4)
-            {
-                System.out.println("[E] Vertex add type: vertex --add <label> <type>.\nInput format not convinced.");
-                return this.ans;
-            }
             if(cmdhead[1].equals(possiblecm[0]))//vertex --all label type
             {
+                if(cmdhead.length!=4)
+                {
+                    System.out.println("[E] Vertex add type: vertex --add <label> <type>.\nInput format not convinced.");
+                    return this.ans;
+                }
                 this.label = cmdhead[2];
                 this.type  = cmdhead[3];
                 this.regex = null;
@@ -62,6 +62,11 @@ public class ParseCommandHelper
             }
             else if(cmdhead[1].equals(possiblecm[1]))
             {
+                if(cmdhead.length!=3)
+                {
+                    System.out.println("[E] Vertex delete type: vertex --delete <label> .\nInput format not convinced.");
+                    return this.ans;
+                }
                 this.regex = cmdhead[2];
                 ans = existGraphBuilder.cmdVertexDeleter(this.regex);
             }
@@ -69,14 +74,14 @@ public class ParseCommandHelper
         else if(cmdhead[0].equals(possibleinputhead[1]))
         {
             //System.out.println(headline);
-            if(cmdhead.length <= 7)
-            {
-                System.out.println("[I;E] Please specify the information about: edge: weighted, weight, directed.");
-                System.out.println("[I;E] input format not supported.\nHalted.\nInput Formats: edge --add label type weighted=N directed=Y/N v1, v2 Or edge --add label type weighted=Y weight directed=Y/N v1, v2");
-                return this.ans;
-            }
             if(cmdhead[1].equals(possiblecm[0]))//edge --add label type [weighted=Y/N] [weight] [directed=Y/N] v1, v2
             {
+                if(cmdhead.length <= 7)
+                {
+                    System.out.println("[I;E] Please specify the information about: edge: weighted, weight, directed.");
+                    System.out.println("[I;E] input format not supported.\nHalted.\nInput Formats: edge --add label type weighted=N directed=Y/N v1, v2 Or edge --add label type weighted=Y weight directed=Y/N v1, v2");
+                    return this.ans;
+                }
                 this.label = cmdhead[2];
                 this.type  = cmdhead[3];
                 this.v1 = cmdhead[cmdhead.length-2];
